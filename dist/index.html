@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salted — NaCl Digital Agency</title>
+  <meta name="description" content="Salted is a high-end digital agency specialising in SEO, paid media, social media automation, AI agents, and 3D interactive web development." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script type="module" crossorigin src="/assets/index-DGM0-Mo7.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-D-lvDInB.css">
+</head>
+<body>
+
+  <!-- ── 3D scene — pinned by ScrollTrigger during animation ────── -->
+  <div id="pin-scene">
+    <canvas id="three-canvas"></canvas>
+
+    <!-- Brand overlay — fades out as shaker tips -->
+    <div class="brand-overlay" id="brand-overlay">
+      <p class="brand-eyebrow">Na<sup>+</sup>Cl<sup>−</sup></p>
+      <h1 class="brand-name">SALTED</h1>
+      <p class="brand-tagline">Digital Agency</p>
+    </div>
+
+    <!-- Shake hint -->
+    <div class="shake-hint" id="shake-hint">
+      <div class="shake-hint-inner">
+        <div class="shake-arrows">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M8 12H3M3 12L7 8M3 12L7 16" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M16 12H21M21 12L17 8M21 12L17 16" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="shake-label">Shake to enter</p>
+      </div>
+    </div>
+
+    <!-- Shake progress dots -->
+    <div class="shake-progress" id="shake-progress">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- Scroll cue — shown after unlock -->
+    <div class="scroll-cue" id="scroll-cue">
+      <span>Scroll</span>
+      <div class="scroll-cue-line"></div>
+    </div>
+  </div>
+
+  <!-- ── Content — revealed after animation pin releases ────────── -->
+  <main class="site-content">
+
+    <section class="svc-section">
+      <div class="svc-inner">
+        <div class="svc-left">
+          <span class="svc-no">01</span>
+          <h2 class="svc-name">Search &amp;<br/>Visibility</h2>
+        </div>
+        <div class="svc-right">
+          <p class="svc-body">Technical SEO, keyword architecture, and authority-building that puts you at the top — and keeps you there.</p>
+          <ul class="svc-pills">
+            <li>On-page SEO</li><li>Technical audits</li><li>Link building</li><li>Local &amp; national rank</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="svc-section">
+      <div class="svc-inner">
+        <div class="svc-left">
+          <span class="svc-no">02</span>
+          <h2 class="svc-name">Paid<br/>Media</h2>
+        </div>
+        <div class="svc-right">
+          <p class="svc-body">Performance campaigns across Google, Meta, and TikTok. Every dollar tracked. Every result accountable.</p>
+          <ul class="svc-pills">
+            <li>Google Ads</li><li>Meta (FB &amp; IG)</li><li>TikTok Ads</li><li>Retargeting</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="svc-section">
+      <div class="svc-inner">
+        <div class="svc-left">
+          <span class="svc-no">03</span>
+          <h2 class="svc-name">Social<br/>Automation</h2>
+        </div>
+        <div class="svc-right">
+          <p class="svc-body">AI-powered scheduling and auto-posting across every platform. Consistent presence, zero manual effort.</p>
+          <ul class="svc-pills">
+            <li>Auto-scheduling</li><li>Multi-platform</li><li>Content queuing</li><li>Analytics</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="svc-section">
+      <div class="svc-inner">
+        <div class="svc-left">
+          <span class="svc-no">04</span>
+          <h2 class="svc-name">Social<br/>Agents</h2>
+        </div>
+        <div class="svc-right">
+          <p class="svc-body">AI agents that engage your audience 24/7 — responding to comments, DMs, and reaching out to new leads automatically.</p>
+          <ul class="svc-pills">
+            <li>Comment replies</li><li>DM automation</li><li>Lead outreach</li><li>Follower growth</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="svc-section">
+      <div class="svc-inner">
+        <div class="svc-left">
+          <span class="svc-no">05</span>
+          <h2 class="svc-name">3D Interactive<br/>Web</h2>
+        </div>
+        <div class="svc-right">
+          <p class="svc-body">We build experiences that stop people mid-scroll. WebGL, Three.js, and real-time interaction — bespoke, every time. You just experienced it.</p>
+          <ul class="svc-pills">
+            <li>Three.js / WebGL</li><li>GSAP ScrollTrigger</li><li>Interactive 3D</li><li>Performance-first</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section">
+      <div class="cta-inner">
+        <p class="cta-eyebrow">Ready to stand out?</p>
+        <h2 class="cta-headline">Let's make something<br/>remarkable.</h2>
+        <a href="mailto:hello@salted.agency" class="cta-link">hello@salted.agency</a>
+        <p class="cta-note">NaCl — because every great brand needs a grain of salt.</p>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
