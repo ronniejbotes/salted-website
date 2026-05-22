@@ -7,10 +7,36 @@
   <meta name="description" content="Salted is a high-end digital agency specialising in SEO, paid media, social media automation, AI agents, and 3D interactive web development." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/src/style.css" />
 </head>
 <body>
+
+  <!-- ── Nav ──────────────────────────────────────────────────────── -->
+  <nav class="site-nav" id="site-nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#">SALTED</a>
+      <ul class="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <a href="#contact" class="nav-cta">Get in touch</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="nav-mobile" id="nav-mobile">
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <!-- ── 3D scene — pinned by ScrollTrigger during animation ────── -->
   <div id="pin-scene">
@@ -25,16 +51,11 @@
 
     <!-- Shake hint -->
     <div class="shake-hint" id="shake-hint">
-      <div class="shake-hint-inner">
-        <div class="shake-arrows">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M8 12H3M3 12L7 8M3 12L7 16" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M16 12H21M21 12L17 8M21 12L17 16" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <p class="shake-label">Shake to enter</p>
+      <div class="shake-left">
+        <p class="shake-label">Shake<br/>to enter</p>
+      </div>
+      <div class="shake-right">
+        <p class="shake-tagline">Experience the<br/>future with Salted.</p>
       </div>
     </div>
 
@@ -53,7 +74,38 @@
   <!-- ── Content — revealed after animation pin releases ────────── -->
   <main class="site-content">
 
-    <section class="svc-section">
+    <!-- ── Manifesto ────────────────────────────────────────────── -->
+    <section class="manifesto-section">
+      <div class="manifesto-inner">
+        <p class="manifesto-text">We don't believe in bloated retainers, generic strategies, or agencies that hide behind decks. Salted is built for brands that want to move fast, be seen, and grow — with technology that works while you sleep.</p>
+      </div>
+    </section>
+
+    <!-- ── Logo Strip ────────────────────────────────────────────── -->
+    <section class="logos-section">
+      <div class="logos-track">
+        <div class="logos-inner">
+          <span>Meridian Group</span>
+          <span>Pulse Wellness</span>
+          <span>VaultX Fintech</span>
+          <span>Nexus Retail</span>
+          <span>Stratum Capital</span>
+          <span>Apex Digital</span>
+          <span>Horizon Labs</span>
+          <span>InnoCore Tech</span>
+          <span>Meridian Group</span>
+          <span>Pulse Wellness</span>
+          <span>VaultX Fintech</span>
+          <span>Nexus Retail</span>
+          <span>Stratum Capital</span>
+          <span>Apex Digital</span>
+          <span>Horizon Labs</span>
+          <span>InnoCore Tech</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="svc-section" id="services">
       <div class="svc-inner">
         <div class="svc-left">
           <span class="svc-no">01</span>
@@ -128,6 +180,339 @@
       </div>
     </section>
 
+    <!-- ── Stats ─────────────────────────────────────────────────── -->
+    <section class="stats-section">
+      <div class="stats-inner">
+        <div class="stat-item">
+          <span class="stat-num">40+</span>
+          <span class="stat-label">Brands elevated</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">R12M+</span>
+          <span class="stat-label">Ad spend managed</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">3×</span>
+          <span class="stat-label">Avg. ROAS improvement</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Custom. Always.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Work / Case Studies ───────────────────────────────────── -->
+    <section class="work-section" id="work">
+      <div class="work-inner">
+        <span class="section-eyebrow">Selected Work</span>
+        <h2 class="work-title">Results that speak.</h2>
+        <div class="work-grid">
+          <div class="work-card">
+            <div class="work-card-header">
+              <span class="work-industry">E-commerce</span>
+              <span class="work-service">Paid Media + SEO</span>
+            </div>
+            <div class="work-metric">3.8×</div>
+            <p class="work-metric-label">Return on ad spend</p>
+            <h3 class="work-client">Nexus Retail</h3>
+            <p class="work-desc">Rebuilt their entire paid media stack across Google and Meta. Organic traffic up 140% in parallel through technical SEO overhaul.</p>
+            <div class="work-tags">
+              <span>Google Ads</span><span>Meta</span><span>SEO</span>
+            </div>
+          </div>
+          <div class="work-card">
+            <div class="work-card-header">
+              <span class="work-industry">Property</span>
+              <span class="work-service">SEO + Social Agents</span>
+            </div>
+            <div class="work-metric">218%</div>
+            <p class="work-metric-label">Increase in organic leads</p>
+            <h3 class="work-client">Meridian Property Group</h3>
+            <p class="work-desc">Combined technical SEO with AI-powered social agents to capture and qualify leads 24/7. Organic pipeline tripled in 5 months.</p>
+            <div class="work-tags">
+              <span>SEO</span><span>AI Agents</span><span>Social</span>
+            </div>
+          </div>
+          <div class="work-card">
+            <div class="work-card-header">
+              <span class="work-industry">Fintech</span>
+              <span class="work-service">3D Web + Paid Media</span>
+            </div>
+            <div class="work-metric">62%</div>
+            <p class="work-metric-label">Drop in cost per acquisition</p>
+            <h3 class="work-client">VaultX Fintech</h3>
+            <p class="work-desc">Built an immersive 3D product landing page and paired it with precision paid media. Lower CPA, higher intent traffic, standout brand recall.</p>
+            <div class="work-tags">
+              <span>3D Web</span><span>Google Ads</span><span>TikTok</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Process ───────────────────────────────────────────────── -->
+    <section class="process-section">
+      <div class="process-inner">
+        <div class="process-header">
+          <span class="section-eyebrow">How We Work</span>
+          <h2 class="process-title">From brief<br/>to breakthrough.</h2>
+        </div>
+        <div class="process-steps">
+          <div class="process-step">
+            <span class="step-no">01</span>
+            <h3 class="step-name">Discover</h3>
+            <p class="step-body">We dig into your brand, market, and competitors. No assumptions — just facts and real opportunity.</p>
+          </div>
+          <div class="process-step">
+            <span class="step-no">02</span>
+            <h3 class="step-name">Strategise</h3>
+            <p class="step-body">Every channel and creative decision is mapped to a business outcome before a single pixel is placed.</p>
+          </div>
+          <div class="process-step">
+            <span class="step-no">03</span>
+            <h3 class="step-name">Execute</h3>
+            <p class="step-body">We build, launch, and manage with relentless attention to detail — across SEO, paid media, social, and web.</p>
+          </div>
+          <div class="process-step">
+            <span class="step-no">04</span>
+            <h3 class="step-name">Iterate</h3>
+            <p class="step-body">Data drives everything. We measure, learn, and compound — turning good results into great ones.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── About ─────────────────────────────────────────────────── -->
+    <section class="about-section" id="about">
+      <div class="about-inner">
+        <div class="about-left">
+          <span class="section-eyebrow">Who We Are</span>
+          <h2 class="about-title">Small team.<br/>Big output.<br/>Zero fluff.</h2>
+        </div>
+        <div class="about-right">
+          <p class="about-body">Salted is a boutique digital agency built by people who got tired of watching clients pay agency fees for junior-run campaigns and templated strategies.</p>
+          <p class="about-body">We're a tight team of strategists, performance marketers, AI engineers, and 3D web developers — all senior, all hands-on, all obsessed with results that move the needle.</p>
+          <p class="about-body">We work with a limited number of clients at any time. That's deliberate. When you work with Salted, you get the whole team — not a slice of it.</p>
+          <ul class="about-facts">
+            <li><strong>South Africa based</strong> — Global standards</li>
+            <li><strong>Founded 2022</strong> — Born digital-native</li>
+            <li><strong>Max 12 clients</strong> — By design, not accident</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Why Salted ─────────────────────────────────────────────── -->
+    <section class="why-section">
+      <div class="why-inner">
+        <div class="why-header">
+          <span class="section-eyebrow">Why Salted</span>
+          <h2 class="why-title">Built different.<br/>Priced fairly.<br/>Obsessed with results.</h2>
+        </div>
+        <div class="why-grid">
+          <div class="why-item">
+            <h3 class="why-item-name">No middlemen</h3>
+            <p class="why-item-body">You work directly with the people building your campaigns. Faster decisions, sharper execution, zero dilution.</p>
+          </div>
+          <div class="why-item">
+            <h3 class="why-item-name">AI-first by design</h3>
+            <p class="why-item-body">We've embedded AI agents into every service — not as a buzzword, but as a genuine competitive edge for your brand.</p>
+          </div>
+          <div class="why-item">
+            <h3 class="why-item-name">Transparent reporting</h3>
+            <p class="why-item-body">Real dashboards, real numbers. You own your data and see exactly where every rand is going.</p>
+          </div>
+          <div class="why-item">
+            <h3 class="why-item-name">Full-stack capability</h3>
+            <p class="why-item-body">From SEO strategy to 3D web experiences — everything you need, one team, zero outsourcing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Pricing ───────────────────────────────────────────────── -->
+    <section class="pricing-section" id="pricing">
+      <div class="pricing-inner">
+        <span class="section-eyebrow">Pricing</span>
+        <h2 class="pricing-title">Clear pricing.<br/>No surprises.</h2>
+        <div class="pricing-list">
+
+          <div class="pricing-row">
+            <div class="pricing-row-left">
+              <span class="pricing-row-no">01</span>
+              <h3 class="pricing-row-name">Search &amp;<br/>Visibility</h3>
+            </div>
+            <div class="pricing-row-right">
+              <div class="pricing-row-price">From <strong>R6,500</strong><span>/mo</span></div>
+              <p class="pricing-row-note">Technical SEO, content strategy, and authority building that puts you at the top — and keeps you there.</p>
+              <a href="#contact" class="pricing-row-cta">Get started →</a>
+            </div>
+          </div>
+
+          <div class="pricing-row pricing-row--highlight">
+            <div class="pricing-row-left">
+              <span class="pricing-row-no">02</span>
+              <h3 class="pricing-row-name">Paid<br/>Media</h3>
+            </div>
+            <div class="pricing-row-right">
+              <div class="pricing-row-price"><strong>33%</strong><span> of monthly ad spend</span></div>
+              <p class="pricing-row-note">For every R3 you invest in ads, R1 comes to us. We grow when you grow — no flat fee, no conflict of interest. Minimum R4,500/mo management fee.</p>
+              <a href="#contact" class="pricing-row-cta">Get started →</a>
+            </div>
+          </div>
+
+          <div class="pricing-row">
+            <div class="pricing-row-left">
+              <span class="pricing-row-no">03</span>
+              <h3 class="pricing-row-name">Social<br/>Automation</h3>
+            </div>
+            <div class="pricing-row-right">
+              <div class="pricing-row-price">From <strong>R4,500</strong><span>/mo</span></div>
+              <p class="pricing-row-note">AI-powered scheduling, auto-posting, and analytics across every platform. Consistent presence, zero manual effort.</p>
+              <a href="#contact" class="pricing-row-cta">Get started →</a>
+            </div>
+          </div>
+
+          <div class="pricing-row">
+            <div class="pricing-row-left">
+              <span class="pricing-row-no">04</span>
+              <h3 class="pricing-row-name">AI Social<br/>Agents</h3>
+            </div>
+            <div class="pricing-row-right">
+              <div class="pricing-row-price">From <strong>R5,500</strong><span>/mo</span></div>
+              <p class="pricing-row-note">Autonomous agents that engage, respond, and qualify leads across your social channels 24/7 — no human hours required.</p>
+              <a href="#contact" class="pricing-row-cta">Get started →</a>
+            </div>
+          </div>
+
+          <div class="pricing-row">
+            <div class="pricing-row-left">
+              <span class="pricing-row-no">05</span>
+              <h3 class="pricing-row-name">3D Interactive<br/>Web</h3>
+            </div>
+            <div class="pricing-row-right">
+              <div class="pricing-row-price">From <strong>R28,000</strong><span> per project</span></div>
+              <p class="pricing-row-note">Bespoke WebGL and Three.js experiences scoped to your vision. Custom quote within 24 hours of your brief.</p>
+              <a href="#contact" class="pricing-row-cta">Request a quote →</a>
+            </div>
+          </div>
+
+        </div>
+        <p class="pricing-footnote">Services can be bundled — ask about multi-service discounts. All retainers are month-to-month after an initial 3-month term.</p>
+      </div>
+    </section>
+
+    <!-- ── Testimonials ───────────────────────────────────────────── -->
+    <section class="testimonials-section">
+      <div class="testimonials-inner">
+        <span class="section-eyebrow">What Clients Say</span>
+        <div class="testimonials-grid">
+          <div class="testimonial-card">
+            <p class="testimonial-quote">"Salted completely transformed how we appear online. Organic traffic doubled in four months and the website still gets compliments every day."</p>
+            <div class="testimonial-author">
+              <span class="author-name">Thabo Nkosi</span>
+              <span class="author-role">CEO, Meridian Property Group</span>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <p class="testimonial-quote">"The AI social agents changed the game. We're engaging leads we never would have reached manually — and the conversion rate speaks for itself."</p>
+            <div class="testimonial-author">
+              <span class="author-name">Cara Joubert</span>
+              <span class="author-role">Head of Marketing, Pulse Wellness</span>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <p class="testimonial-quote">"We briefed them on a Tuesday. By Friday we had a live paid media strategy and our first campaign was already pulling leads. Unlike any agency we've used before."</p>
+            <div class="testimonial-author">
+              <span class="author-name">Marco de Villiers</span>
+              <span class="author-role">Founder, VaultX Fintech</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Industries ─────────────────────────────────────────────── -->
+    <section class="industries-section">
+      <div class="industries-inner">
+        <span class="section-eyebrow">Industries We Work With</span>
+        <div class="industries-tags">
+          <span>E-commerce</span>
+          <span>Property &amp; Real Estate</span>
+          <span>Financial Services</span>
+          <span>Health &amp; Wellness</span>
+          <span>Hospitality &amp; Tourism</span>
+          <span>Technology &amp; SaaS</span>
+          <span>Professional Services</span>
+          <span>Retail &amp; FMCG</span>
+          <span>Education</span>
+          <span>Lifestyle &amp; Fashion</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Agent Request / Contact ───────────────────────────────── -->
+    <section class="contact-section" id="contact">
+      <div class="contact-inner">
+        <div class="contact-left">
+          <span class="section-eyebrow">Request a Contact</span>
+          <h2 class="contact-title">An agent will<br/>reach out<br/>within the hour.</h2>
+          <p class="contact-body">Drop your details below and one of our AI-powered agents will reach out to you personally — no waiting, no generic email chain, no pushy sales call.</p>
+          <ul class="contact-perks">
+            <li>Free 30-minute strategy session</li>
+            <li>No commitment required</li>
+            <li>Tailored proposal within 24 hours</li>
+          </ul>
+        </div>
+        <div class="contact-right">
+          <form class="contact-form" id="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Name</label>
+                <input class="form-input" type="text" name="name" placeholder="Your full name" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input class="form-input" type="email" name="email" placeholder="your@email.com" required />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Phone</label>
+                <input class="form-input" type="tel" name="phone" placeholder="+27 82 000 0000" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">I'm interested in</label>
+                <select class="form-input form-select" name="service">
+                  <option value="">Choose a service</option>
+                  <option value="seo">Search &amp; Visibility (SEO)</option>
+                  <option value="paid">Paid Media</option>
+                  <option value="social-auto">Social Automation</option>
+                  <option value="social-agents">AI Social Agents</option>
+                  <option value="web">3D Interactive Web</option>
+                  <option value="all">Full-service package</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">What's your biggest challenge right now?</label>
+              <textarea class="form-input form-textarea" name="message" placeholder="Tell us what's not working and what you're trying to achieve..." rows="4"></textarea>
+            </div>
+            <button type="submit" class="form-btn">
+              <span>Request contact — agent responds within the hour</span>
+              <span class="form-btn-arrow">→</span>
+            </button>
+          </form>
+          <div class="contact-success" id="contact-success">
+            <div class="success-check">✓</div>
+            <h3 class="success-title">You're in.</h3>
+            <p class="success-body">Our agent will reach out within the hour. Keep an eye on your inbox and phone — we move fast.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="cta-section">
       <div class="cta-inner">
         <p class="cta-eyebrow">Ready to stand out?</p>
@@ -138,6 +523,58 @@
     </section>
 
   </main>
+
+  <!-- ── Footer ────────────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <p class="footer-logo">SALTED</p>
+          <p class="footer-tagline">NaCl — Because every great brand<br/>needs a grain of salt.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <p class="footer-col-title">Services</p>
+            <ul>
+              <li><a href="#services">Search &amp; Visibility</a></li>
+              <li><a href="#services">Paid Media</a></li>
+              <li><a href="#services">Social Automation</a></li>
+              <li><a href="#services">AI Social Agents</a></li>
+              <li><a href="#services">3D Interactive Web</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <p class="footer-col-title">Company</p>
+            <ul>
+              <li><a href="#about">About</a></li>
+              <li><a href="#work">Work</a></li>
+              <li><a href="#pricing">Pricing</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <p class="footer-col-title">Contact</p>
+            <ul>
+              <li><a href="mailto:hello@salted.agency">hello@salted.agency</a></li>
+              <li>Johannesburg, South Africa</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2025 Salted Digital Agency. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#">Instagram</a>
+          <a href="#">LinkedIn</a>
+          <a href="#">X / Twitter</a>
+        </div>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script type="module" src="/src/main.js"></script>
 </body>

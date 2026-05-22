@@ -11,13 +11,12 @@ function clamp01(v) { return Math.min(1, Math.max(0, v)); }
  * intermediate GSAP tweens so there are zero onUpdate reliability issues.
  *
  * Timeline (progress 0 → 1):
- *  0.00–0.45  shaker rotates 0 → –180° (fully inverted)
  *  0.00–0.30  brand overlay fades out
- *  0.38–0.92  camera descends (follows falling salt)
- *  0.45–0.50  spawn rate ramps to 300/s
- *  0.50–0.88  steady salt pour at 300/s
- *  0.88–1.00  spawn tapers to 0
- *  0.80–1.00  shaker fades to invisible
+ *  0.00–0.55  shaker fades to invisible (dissolves in place)
+ *  0.20–0.30  spawn rate ramps to 300/s
+ *  0.30–0.85  steady salt pour at 300/s
+ *  0.85–1.00  spawn tapers to 0
+ *  0.15–0.90  camera descends (follows falling salt)
  */
 export function initScrollAnimations({
   pivot,
@@ -37,27 +36,32 @@ export function initScrollAnimations({
   ScrollTrigger.create({
     trigger: '#pin-scene',
     start:   'top top',
-    end:     '+=500%',      // 5 viewport-heights of scroll drive the animation
+    end:     '+=80%',
     pin:     true,
-    scrub:   2.0,
+    scrub:   0.8,
     onUpdate(self) {
       const p = self.progress;
 
-      // 1. Rotate pivot — full 180° inversion by 45% scroll
-      pivot.rotation.z = -Math.PI * clamp01(p / 0.45);
+      // 1. Shaker dissolves + spins — fades and rotates from 0% → 20% scroll
+      const fadeT = clamp01(p / 0.20);
+      const shakerOpacity = 1 - fadeT;
+      shakerGroup.traverse(obj => {
+        if (obj.isMesh && obj.material) obj.material.opacity = shakerOpacity;
+      });
+      pivot.rotation.y = Math.PI * 3 * fadeT; // 1.5 Y-axis spins as it fades (25% slower)
 
-      // 2. Camera descent — starts at 38%, reaches bottom at 92%
-      const camT = clamp01((p - 0.38) / 0.54);
+      // 2. Camera descent — starts at 15%, reaches bottom at 90%
+      const camT = clamp01((p - 0.15) / 0.75);
       camera.position.y = CAM_START_Y + (CAM_END_Y - CAM_START_Y) * camT;
 
-      // 3. Particle spawn rate
+      // 3. Particle spawn rate — starts as shaker begins to fade
       let rate = 0;
-      if (p >= 0.45 && p < 0.50) {
-        rate = clamp01((p - 0.45) / 0.05) * 300;   // ramp up
-      } else if (p >= 0.50 && p < 0.88) {
-        rate = 300;                                   // steady pour
-      } else if (p >= 0.88) {
-        rate = clamp01(1 - (p - 0.88) / 0.12) * 300; // taper off
+      if (p >= 0.20 && p < 0.30) {
+        rate = clamp01((p - 0.20) / 0.10) * 300;    // ramp up
+      } else if (p >= 0.30 && p < 0.85) {
+        rate = 300;                                    // steady pour
+      } else if (p >= 0.85) {
+        rate = clamp01(1 - (p - 0.85) / 0.15) * 300; // taper off
       }
       particles.setSpawnRate(rate);
 
@@ -65,17 +69,11 @@ export function initScrollAnimations({
       capHelper.getWorldPosition(_wp);
       particles.setSpawnOrigin(_wp);
 
-      // 5. Shaker fade — disappears from 80% → 100%
-      const shakerOpacity = 1 - clamp01((p - 0.80) / 0.20);
-      shakerGroup.traverse(obj => {
-        if (obj.isMesh && obj.material) obj.material.opacity = shakerOpacity;
-      });
-
-      // 6. Brand overlay fades by 30%
-      brandOverlay.style.opacity = String(clamp01(1 - p / 0.30));
+      // 5. Brand overlay: fades in right after shaker is gone (22%→40%)
+      brandOverlay.style.transition = 'none';
+      brandOverlay.style.opacity = String(clamp01((p - 0.22) / 0.18));
     },
     onLeave() {
-      // Pin released — content sections animate in via IntersectionObserver
       onComplete?.();
     },
   });

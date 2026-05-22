@@ -38,6 +38,7 @@ const SHAKER_HALF_H = 0.975;
 
 const shaker = new SaltShaker();          // does NOT add itself to scene
 shaker.group.position.set(0, -SHAKER_HALF_H, 0); // shift centre to pivot origin
+shaker.group.rotation.y = Math.PI * 0.5;  // 90° — faces NaCl engraving toward camera
 
 const pivot = new THREE.Group();
 pivot.position.set(0, 0, 0);
@@ -70,7 +71,46 @@ function initContentEntrance() {
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
   }, { threshold: 0.12 });
-  document.querySelectorAll('.svc-section, .cta-section').forEach(el => io.observe(el));
+  document.querySelectorAll('.svc-section, .cta-section, .manifesto-section, .stats-section, .process-section, .why-section, .testimonials-section, .industries-section, .contact-section, .work-section, .about-section, .pricing-section, .logos-section').forEach(el => io.observe(el));
+
+  // Contact form — show success state on submit
+  const form    = document.getElementById('contact-form');
+  const success = document.getElementById('contact-success');
+  if (form && success) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      form.style.opacity = '0';
+      form.style.transition = 'opacity 0.3s ease';
+      setTimeout(() => {
+        form.style.display = 'none';
+        success.classList.add('visible');
+      }, 300);
+    });
+  }
+
+  // Nav: transparent on hero → white on scroll
+  const nav = document.getElementById('site-nav');
+  if (nav) {
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('nav-toggle');
+  const navMobile = document.getElementById('nav-mobile');
+  if (navToggle && navMobile) {
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      navMobile.classList.toggle('open');
+    });
+    navMobile.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navToggle.classList.remove('active');
+        navMobile.classList.remove('open');
+      });
+    });
+  }
 }
 
 // ── Shake detector ────────────────────────────────────────────────────
@@ -96,6 +136,10 @@ function unlock() {
   shakeHint.classList.add('hidden');
   progressBar.classList.remove('visible');
   capLight.intensity = 0;
+
+  // Hide brand text — scroll animation will reveal it after shaker fades
+  brandOverlay.style.transition = 'opacity 0.4s ease';
+  brandOverlay.style.opacity = '0';
 
   let count = 0;
   const rattle = setInterval(() => {
@@ -134,8 +178,8 @@ function tick() {
   elapsed += dt;
 
   // Cursor lerp
-  cursorX += (targetX - cursorX) * 0.12;
-  cursorY += (targetY - cursorY) * 0.12;
+  cursorX += (targetX - cursorX) * 0.85;
+  cursorY += (targetY - cursorY) * 0.85;
   cursorEl.style.left = `${cursorX}px`;
   cursorEl.style.top  = `${cursorY}px`;
 

@@ -24,6 +24,14 @@ export class SaltShaker {
       box.setFromObject(model);
       model.position.y -= box.min.y;
 
+      // Enable transparency on all materials so opacity can be animated
+      model.traverse(obj => {
+        if (obj.isMesh && obj.material) {
+          const mats = Array.isArray(obj.material) ? obj.material : [obj.material];
+          mats.forEach(m => { m.transparent = true; m.needsUpdate = true; });
+        }
+      });
+
       this._model = model;
       this.group.add(model);
     });
