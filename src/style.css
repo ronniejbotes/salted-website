@@ -1173,30 +1173,49 @@ body::after {
 /* ─── About ──────────────────────────────────────────────────────── */
 .about-section {
   border-top: 1px solid rgba(0,0,0,0.07);
-  padding: 7rem 0;
+  padding: 9rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.site-content .about-section::before {
+  content: 'NaCl';
+  position: absolute;
+  top: -2rem;
+  right: -1rem;
+  font-size: clamp(8rem, 20vw, 22rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: rgba(0,102,204,0.045);
+  pointer-events: none;
+  line-height: 1;
+  user-select: none;
 }
 .about-inner {
   max-width: 1160px;
   margin: 0 auto;
   padding: 0 5vw;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6rem;
+  grid-template-columns: 5fr 7fr;
+  gap: 7rem;
   align-items: start;
+}
+.site-content .about-left {
+  border-left: 2px solid var(--accent);
+  padding-left: 1.75rem;
 }
 .about-title {
   font-family: var(--sans);
-  font-size: clamp(2.4rem, 4vw, 5rem);
+  font-size: clamp(3rem, 5.5vw, 6.5rem);
   font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1.05;
+  letter-spacing: -0.03em;
+  line-height: 1.0;
   color: var(--text);
 }
 .about-right {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  padding-top: 1rem;
+  padding-top: 0.5rem;
 }
 .about-body {
   font-size: 0.9rem;
@@ -1206,21 +1225,28 @@ body::after {
 }
 .about-facts {
   list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 0.75rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(0,0,0,0.07);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding-top: 0;
+  border-top: none;
 }
 .about-facts li {
-  font-size: 0.82rem;
+  border-top: 2px solid var(--accent);
+  padding-top: 1rem;
+  font-size: 0.75rem;
   color: var(--dim);
   font-weight: 300;
+  line-height: 1.5;
 }
 .about-facts li strong {
+  display: block;
+  font-size: clamp(0.95rem, 1.4vw, 1.2rem);
+  font-weight: 700;
   color: var(--text);
-  font-weight: 600;
+  letter-spacing: -0.015em;
+  margin-bottom: 0.25rem;
 }
 
 /* ─── Pricing ────────────────────────────────────────────────────── */
@@ -1450,6 +1476,8 @@ body::after {
   .work-track { width: 100%; flex-wrap: wrap; padding: 0 5vw 3rem; }
   .work-card { width: 100%; }
   .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-facts { grid-template-columns: 1fr; gap: 1rem; }
+  .about-facts li { border-top: none; border-left: 2px solid var(--accent); padding: 0 0 0 1rem; }
   .pricing-row { grid-template-columns: 1fr; gap: 1.25rem; }
   .pricing-row--highlight { margin: 0 -5vw; padding: 2.5rem 5vw; }
   .testimonials-grid { grid-template-columns: 1fr; }
