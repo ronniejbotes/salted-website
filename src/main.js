@@ -82,12 +82,10 @@ function initWorkCarousel() {
   if (!track || !workSection || window.innerWidth < 769) return;
 
   // getDist: full track travel. getEffDist: stops at last card's right edge
-  // (subtracts the 5vw right padding so sticky releases the moment the last
+  // (subtracts the 5vw right padding so GSAP pin releases the moment the last
   // card is flush to the viewport — no empty padding to scroll through).
   const getDist    = () => track.scrollWidth - window.innerWidth;
   const getEffDist = () => getDist() - window.innerWidth * 0.05;
-  const setHeight  = () => { workSection.style.height = `${window.innerHeight + getEffDist()}px`; };
-  setHeight();
 
   const sticky       = workSection.querySelector('.work-sticky');
   const statsSection = document.querySelector('.stats-section');
@@ -115,10 +113,10 @@ function initWorkCarousel() {
 
   ScrollTrigger.create({
     trigger: workSection,
+    pin: true,
     start: 'top top',
     end: () => `+=${getEffDist()}`,
     invalidateOnRefresh: true,
-    onRefresh: setHeight,
     onUpdate(self) {
       if (!carouselReady) { gsap.set(track, { x: 0 }); return; }
       if (revealProgress === null) revealProgress = self.progress;
