@@ -58,20 +58,89 @@ let shakeProgress = 0;
 let lenis         = null;
 let lookAtY       = 0; // smoothly tracks camera.position.y
 
+// ── Block native scroll until unlock ──────────────────────────────────
+const _blockScroll = e => e.preventDefault();
+window.addEventListener('wheel',     _blockScroll, { passive: false });
+window.addEventListener('touchmove', _blockScroll, { passive: false });
+
 // ── Lenis + ScrollTrigger ─────────────────────────────────────────────
 function initLenis() {
+  window.removeEventListener('wheel',     _blockScroll);
+  window.removeEventListener('touchmove', _blockScroll);
+  window.scrollTo(0, 0);
   lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
   lenis.on('scroll', ScrollTrigger.update);
   gsap.ticker.add(time => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
+  ScrollTrigger.refresh();
+}
+
+// ── Work carousel ─────────────────────────────────────────────────────
+function initWorkCarousel() {
+  const track       = document.querySelector('.work-track');
+  const workSection = document.querySelector('.work-section');
+  if (!track || !workSection || window.innerWidth < 769) return;
+
+  // getDist: full track travel. getEffDist: stops at last card's right edge
+  // (subtracts the 5vw right padding so sticky releases the moment the last
+  // card is flush to the viewport — no empty padding to scroll through).
+  const getDist    = () => track.scrollWidth - window.innerWidth;
+  const getEffDist = () => getDist() - window.innerWidth * 0.05;
+  const setHeight  = () => { workSection.style.height = `${window.innerHeight + getEffDist()}px`; };
+  setHeight();
+
+  const sticky       = workSection.querySelector('.work-sticky');
+  const statsSection = document.querySelector('.stats-section');
+  const setX         = gsap.quickTo(track, 'x', { duration: 0.2, ease: 'none' });
+
+  // revealProgress: captures scroll position the moment the IO fires so the
+  // carousel always starts visually at card 1, no snap.
+  let carouselReady  = false;
+  let revealProgress = null;
+
+  if (statsSection && sticky) {
+    const io = new IntersectionObserver(([entry]) => {
+      const goneAbove = !entry.isIntersecting && entry.boundingClientRect.bottom <= 0;
+      if (goneAbove && !carouselReady) {
+        carouselReady  = true;
+        revealProgress = null;
+      } else if (!goneAbove && carouselReady) {
+        carouselReady  = false;
+        revealProgress = null;
+        gsap.set(track, { x: 0 });
+      }
+    }, { threshold: 0 });
+    io.observe(statsSection);
+  }
+
+  ScrollTrigger.create({
+    trigger: workSection,
+    start: 'top top',
+    end: () => `+=${getEffDist()}`,
+    invalidateOnRefresh: true,
+    onRefresh: setHeight,
+    onUpdate(self) {
+      if (!carouselReady) { gsap.set(track, { x: 0 }); return; }
+      if (revealProgress === null) revealProgress = self.progress;
+      const remaining = 1 - revealProgress;
+      const p = remaining > 0
+        ? Math.max(0, Math.min(1, (self.progress - revealProgress) / remaining))
+        : 1;
+      setX(-getEffDist() * p);
+    },
+  });
 }
 
 // ── Content entrance ──────────────────────────────────────────────────
 function initContentEntrance() {
+  const siteContent = document.querySelector('.site-content');
+  if (siteContent) siteContent.classList.add('unlocked');
+
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
   }, { threshold: 0.12 });
-  document.querySelectorAll('.svc-section, .cta-section, .manifesto-section, .stats-section, .process-section, .why-section, .testimonials-section, .industries-section, .contact-section, .work-section, .about-section, .pricing-section, .logos-section').forEach(el => io.observe(el));
+  document.querySelectorAll('.svc-section, .cta-section, .manifesto-section, .stats-section, .process-section, .why-section, .testimonials-section, .industries-section, .contact-section, .about-section, .pricing-section, .logos-section').forEach(el => io.observe(el));
+  initWorkCarousel();
 
   // Contact form — show success state on submit
   const form    = document.getElementById('contact-form');
@@ -123,10 +192,14 @@ const shakeDetector = new ShakeDetector({
   },
   onUnlock: unlock,
 });
-shakeDetector.setActive(true);
-
-canvas.addEventListener('mouseenter', () => cursorEl.classList.add('large'));
-canvas.addEventListener('mouseleave', () => cursorEl.classList.remove('large'));
+canvas.addEventListener('mouseenter', () => {
+  cursorEl.classList.add('large');
+  shakeDetector.setActive(true);
+});
+canvas.addEventListener('mouseleave', () => {
+  cursorEl.classList.remove('large');
+  shakeDetector.setActive(false);
+});
 
 // ── Unlock sequence ───────────────────────────────────────────────────
 function unlock() {
@@ -162,7 +235,6 @@ function unlock() {
         camera,
         brandOverlay,
         scrollCue,
-        onComplete: initContentEntrance,
       });
     }
   }, 60);
