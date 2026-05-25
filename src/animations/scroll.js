@@ -33,6 +33,24 @@ export function initScrollAnimations({
 
   scrollCue.classList.add('visible');
 
+  // ── Manifesto word-by-word highlight ────────────────────────────
+  const manifestoEl = document.querySelector('.manifesto-text');
+  if (manifestoEl) {
+    const words = manifestoEl.textContent.trim().split(/\s+/);
+    manifestoEl.innerHTML = words.map(w => `<span class="mf-word">${w}</span>`).join(' ');
+    const wordEls = Array.from(manifestoEl.querySelectorAll('.mf-word'));
+    ScrollTrigger.create({
+      trigger: '.manifesto-section',
+      start: 'top 10%',
+      end: 'bottom 10%',
+      scrub: 1,
+      onUpdate(self) {
+        const lit = Math.round(self.progress * wordEls.length);
+        wordEls.forEach((w, i) => w.classList.toggle('lit', i < lit));
+      },
+    });
+  }
+
   ScrollTrigger.create({
     trigger: '#pin-scene',
     start:   'top top',

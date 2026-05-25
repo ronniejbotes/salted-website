@@ -385,6 +385,16 @@ body {
   color: var(--text);
   opacity: 0.9;
 }
+.mf-word {
+  padding: 0.06em 0.1em;
+  transition: background-color 0.12s ease, color 0.12s ease;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.mf-word.lit {
+  background-color: #1D1D1F;
+  color: #F5F5F7;
+}
 
 /* ─── Stats ──────────────────────────────────────────────────────── */
 .stats-section {
