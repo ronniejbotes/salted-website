@@ -10,6 +10,9 @@ import { initScrollAnimations } from './animations/scroll.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Strip any URL hash so reloading mid-page always starts the intro from the top
+if (window.location.hash) window.history.replaceState(null, '', window.location.pathname);
+
 // ── DOM refs ──────────────────────────────────────────────────────────
 const canvas       = document.getElementById('three-canvas');
 const shakeHint    = document.getElementById('shake-hint');
@@ -70,6 +73,7 @@ function initLenis() {
   window.scrollTo(0, 0);
   lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
   lenis.on('scroll', ScrollTrigger.update);
+  ScrollTrigger.addEventListener('refresh', () => lenis.resize());
   gsap.ticker.add(time => lenis.raf(time * 1000));
   gsap.ticker.lagSmoothing(0);
   ScrollTrigger.refresh();
@@ -81,51 +85,24 @@ function initWorkCarousel() {
   const workSection = document.querySelector('.work-section');
   if (!track || !workSection || window.innerWidth < 769) return;
 
-  // getDist: full track travel. getEffDist: stops at last card's right edge
-  // (subtracts the 5vw right padding so GSAP pin releases the moment the last
-  // card is flush to the viewport — no empty padding to scroll through).
-  const getDist    = () => track.scrollWidth - window.innerWidth;
-  const getEffDist = () => getDist() - window.innerWidth * 0.05;
+  const getEffDist = () => track.scrollWidth - window.innerWidth * 1.05;
 
-  const sticky       = workSection.querySelector('.work-sticky');
-  const statsSection = document.querySelector('.stats-section');
-  const setX         = gsap.quickTo(track, 'x', { duration: 0.2, ease: 'none' });
-
-  // revealProgress: captures scroll position the moment the IO fires so the
-  // carousel always starts visually at card 1, no snap.
-  let carouselReady  = false;
-  let revealProgress = null;
-
-  if (statsSection && sticky) {
-    const io = new IntersectionObserver(([entry]) => {
-      const goneAbove = !entry.isIntersecting && entry.boundingClientRect.bottom <= 0;
-      if (goneAbove && !carouselReady) {
-        carouselReady  = true;
-        revealProgress = null;
-      } else if (!goneAbove && carouselReady) {
-        carouselReady  = false;
-        revealProgress = null;
-        gsap.set(track, { x: 0 });
-      }
-    }, { threshold: 0 });
-    io.observe(statsSection);
+  // Section must be tall enough to scroll the full card distance while sticky.
+  function setHeight() {
+    workSection.style.height = `${window.innerHeight + getEffDist()}px`;
   }
+  ScrollTrigger.addEventListener('refreshInit', setHeight);
+  setHeight();
 
-  ScrollTrigger.create({
-    trigger: workSection,
-    pin: true,
-    start: 'top top',
-    end: () => `+=${getEffDist()}`,
-    invalidateOnRefresh: true,
-    onUpdate(self) {
-      if (!carouselReady) { gsap.set(track, { x: 0 }); return; }
-      if (revealProgress === null) revealProgress = self.progress;
-      const remaining = 1 - revealProgress;
-      const p = remaining > 0
-        ? Math.max(0, Math.min(1, (self.progress - revealProgress) / remaining))
-        : 1;
-      setX(-getEffDist() * p);
-    },
+  gsap.set(track, { x: 0 });
+
+  // Drive the track directly from Lenis scroll position using
+  // getBoundingClientRect() so there are zero ScrollTrigger measurement
+  // issues. scrolled = how far the section top has passed the viewport top.
+  // x = -scrolled, clamped to [0, effDist]. No dead zones, no early start.
+  lenis.on('scroll', () => {
+    const scrolled = -workSection.getBoundingClientRect().top;
+    gsap.set(track, { x: -Math.max(0, Math.min(getEffDist(), scrolled)) });
   });
 }
 
@@ -234,6 +211,7 @@ function unlock() {
         brandOverlay,
         scrollCue,
       });
+      gsap.delayedCall(0.2, () => ScrollTrigger.refresh());
     }
   }, 60);
 }

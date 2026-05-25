@@ -1064,6 +1064,8 @@ body::after {
   background: #EDF3F7;
 }
 .work-sticky {
+  position: sticky;
+  top: 0;
   height: 100vh;
   overflow: hidden;
   padding: 7rem 0 0;
