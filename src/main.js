@@ -10,7 +10,9 @@ import { initScrollAnimations } from './animations/scroll.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Strip any URL hash so reloading mid-page always starts the intro from the top
+// Always start at the top — disable browser scroll restoration and clear any hash
+history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
 if (window.location.hash) window.history.replaceState(null, '', window.location.pathname);
 
 // ── DOM refs ──────────────────────────────────────────────────────────
@@ -60,6 +62,10 @@ let appState      = 'locked';
 let shakeProgress = 0;
 let lenis         = null;
 let lookAtY       = 0; // smoothly tracks camera.position.y
+
+// Release WebGL context on true navigation/refresh (not bfcache storage).
+// pagehide is bfcache-friendly; beforeunload disables bfcache entirely.
+window.addEventListener('pagehide', e => { if (!e.persisted) renderer.destroy(); });
 
 // ── Block native scroll until unlock ──────────────────────────────────
 const _blockScroll = e => e.preventDefault();

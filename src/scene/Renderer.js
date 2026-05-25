@@ -107,5 +107,10 @@ export class Renderer {
   destroy() {
     this._ro.disconnect();
     this.renderer.dispose();
+    // Explicitly release the WebGL context so browsers don't accumulate zombie
+    // contexts across refreshes and hit the per-origin limit (~8–16).
+    const gl  = this.renderer.getContext();
+    const ext = gl?.getExtension('WEBGL_lose_context');
+    if (ext) ext.loseContext();
   }
 }
